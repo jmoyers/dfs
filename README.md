@@ -1,4 +1,4 @@
-Graph processing problems
+# Graph processing problems
 
 * Path: is there a path between s and t?
 * Shortest Path: what is the hsortest path between s and t?
@@ -20,7 +20,7 @@ Graph processing problems
 * Planarity: Can you draw the graph in the plane with no crossing edges?
 * Graph isopmorphism: Do two adjacency lists represent the same graph?
 
-<br/>
+# Impl
 
 * We'll use adjacency-list representation for storage
 * For every vertex, we'll keep a list of connected vertexes
