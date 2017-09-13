@@ -76,62 +76,39 @@ class Graph {
 //  Mark v as visited
 //  Recursively visit all unmarked vertices w adjacent to v
 
+class GraphSearch {
+  var graph : Graph
 
-class DFS {
-  private(set) public var path : [Int]
+  var pathBack : [Int]
   var visited : [Bool]
-  var origin : Int
 
-  var searchStarted = false
-  var initialDepth = 0
+  var started = false
+  var stackStart = 0
 
-  init(graph: Graph, origin: Int) {
-    assert(graph.contains(origin))
-    self.origin = origin
-    self.path = [Int](repeating: -1, count: graph.vertexCount)
+  init(graph: Graph) {
+    self.graph = graph
+    self.pathBack = [Int](repeating: -1, count: graph.vertexCount)
     self.visited = [Bool](repeating: false, count: graph.vertexCount)
-
-    search(graph: graph, forVertex: origin)
   }
 
-  func search(graph: Graph, forVertex v: Int) {
-    if searchStarted == false {
-      searchStarted = true
-      initialDepth = Thread.callStackSymbols.count
-    }
-    
-    let spacer = String(repeating: "| ", 
-      count: Thread.callStackSymbols.count - initialDepth)
-
-    print("\(spacer)Search \(v)")
-
-    assert(visited.indices.contains(v))
-    visited[v] = true
-
-    for w in graph.adjacent(v) ?? [] {
-      if visited[w] == false {
-        search(graph: graph, forVertex: w)
-        print("\(spacer)\(w) = \(v)")
-        path[w] = v
-      }
-    }
+  func reset() {
+    pathBack = [Int](repeating: -1, count: graph.vertexCount)
+    visited = [Bool](repeating: false, count: graph.vertexCount)
   }
 
-  func pathTo(graph: Graph, to v: Int) -> [Int]? {
-    assert(graph.contains(v))
-
-    guard path[v] != -1 else {
+  func path(to v: Int) -> [Int]? {
+    guard pathBack[v] != -1 else {
       return nil
     }
 
     var to : [Int] = []
-    var curr = path[v]
+    var curr = pathBack[v]
 
     to.append(v)
 
     while (curr != -1) {
       to.append(curr)
-      curr = path[curr]
+      curr = pathBack[curr]
     }
 
     return to
@@ -141,26 +118,95 @@ class DFS {
     return visited[v]
   }
 
-  class func pretty(_ path: [Int]?) -> String {
-    guard let path = path else {
+  class func pretty(_ pathBack: [Int]?) -> String {
+    guard let pathBack = pathBack else {
       return "no path available"
     }
-    return path.reduce("") {
+    return pathBack.reduce("") {
       guard $0 != "" else { return "\($1)" }
       return "\($0) -> \($1)"
     }
   }
 }
 
-var g = Graph(vertexCount: 10)
+
+extension GraphSearch {
+  @discardableResult func dfs(start v: Int = 0) -> GraphSearch {
+    if started == false {
+      started = true
+      stackStart = Thread.callStackSymbols.count
+    }
+    
+    let spacer = String(repeating: "| ", 
+      count: Thread.callStackSymbols.count - stackStart)
+
+    print("\(spacer)Search \(v)")
+
+    visited[v] = true
+
+    for w in graph.adjacent(v) ?? [] {
+      if visited[w] == false {
+        dfs(start: w)
+        print("\(spacer)\(w) = \(v)")
+        pathBack[w] = v
+      }
+    }
+
+    return self
+  }
+}
+
+extension GraphSearch {
+  @discardableResult func bfs() -> GraphSearch {
+    var q = [0]
+    visited[0] = true
+
+
+    while (q.count > 0) {
+      let next = q[0]
+      q.remove(at:0)
+
+      print("Search \(next)")
+
+      for w in graph.adjacent(next) ?? [] {
+        if visited[w] == false {
+          q.append(w)
+          visited[w] = true
+          pathBack[w] = next
+        }
+      }
+    }
+    return self
+  }
+}
+
+
+var g = Graph(vertexCount: 20)
 g.edge(0, 1)
 g.edge(1, 2)
 g.edge(2, 8)
 g.edge(5, 6)
+g.edge(2, 6)
+g.edge(0, 11)
+g.edge(1, 12)
+g.edge(11, 17)
+g.edge(2, 3)
+g.edge(3, 4)
+g.edge(4, 5)
+g.edge(5, 6)
+g.edge(6, 7)
+g.edge(7, 8)
+g.edge(8, 9)
+g.edge(9, 10)
+g.edge(10, 11)
+g.edge(11, 12)
+g.edge(12, 13)
+g.edge(13, 14)
+g.edge(14, 15)
+g.edge(15, 16)
+g.edge(16, 17)
 
-var search = DFS(graph: g, origin: 0)
-let path = DFS.pretty(search.pathTo(graph: g, to: 8))
-print()
-print(path)
-let path2 = DFS.pretty(search.pathTo(graph: g, to: 6))
-print(path2)
+var search = GraphSearch(graph:g)
+print(GraphSearch.pretty(search.dfs().path(to:17)))
+search.reset()
+print(GraphSearch.pretty(search.bfs().path(to:17)))
