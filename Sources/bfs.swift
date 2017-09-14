@@ -1,4 +1,6 @@
 class BFS : GraphSearch {
+  // An interesting side effect is that naturally pathBack will contain
+  // the shortest path available to get from one node to another
   @discardableResult func bfs(start v: Int = 0) -> [Int] {
     var q = [v]
     visited[v] = true

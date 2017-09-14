@@ -45,17 +45,3 @@ bfs.bfs()
 
 print(prettyPath(bfs.path(to:17)))
 print("unvisited", bfs.unvisited)
-
-// Connectivity queries
-// Goal: preprocess graph to answer queries of the form is v connected to w?
-//  CONSTANT TIME
-
-// Sounds similar to UnionFind, but this algorithm is faster
-// Based on the fact that "is connected to" is an equivalence relation
-// * Reflexive: v is connected to v
-// * Symmetric: w -> v = v -> w
-// * Transitive: v -> w, w -> x = v -> x
-
-// A connected component is a "maximal set", so all connected vertices belong
-// to one component. Just iterate over unvisited vertexes, dfs, and add an
-// array that keeps track of a component id
