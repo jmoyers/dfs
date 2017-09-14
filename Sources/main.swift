@@ -1,6 +1,6 @@
 import Foundation
 
-var g = Graph(vertexCount: 20)
+var g = Digraph(vertexCount: 20)
 g.edge(0, 1)
 g.edge(1, 2)
 g.edge(2, 8)

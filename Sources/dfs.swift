@@ -22,7 +22,7 @@ class DFS : GraphSearch {
   var started = false
   var stackStart = 0
   
-  override init(graph: Graph) {
+  override init(graph: Digraph) {
     connected = [Int](repeating: -1, count: graph.vertexCount)
     super.init(graph: graph)
   }
@@ -93,7 +93,7 @@ class DFS : GraphSearch {
 class Postorder : GraphSearch {
   var postOrder : [Int]
   
-  override init(graph: Graph) {
+  override init(graph: Digraph) {
     postOrder = [Int]()
     postOrder.reserveCapacity(graph.vertexCount)
     super.init(graph: graph)

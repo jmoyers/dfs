@@ -1,5 +1,5 @@
 class GraphSearch {
-  var graph : Graph
+  var graph : Digraph
 
   var pathBack : [Int]
   var visited : [Bool]
@@ -13,7 +13,7 @@ class GraphSearch {
     }
   }
 
-  init(graph: Graph) {
+  init(graph: Digraph) {
     self.graph = graph
     pathBack = [Int](repeating: -1, count: graph.vertexCount)
     visited = [Bool](repeating: false, count: graph.vertexCount)
