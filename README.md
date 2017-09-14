@@ -32,39 +32,40 @@ a dfs and put it on a stack once there are no other unvisited nodes to explore.
 
 ## Output main
 <pre>
+Depth-first
 Search 0
 | Search 1
 | | Search 2
 | | | Search 8
-| | | | Search 7
-| | | | | Search 6
-| | | | | | Search 5
-| | | | | | | Search 4
-| | | | | | | | Search 3
-| | | | | | | 3 = 4
-| | | | | | 4 = 5
-| | | | | 5 = 6
-| | | | 6 = 7
-| | | 7 = 8
 | | | | Search 9
 | | | | | Search 10
 | | | | | | Search 11
 | | | | | | | Search 17
-| | | | | | | | Search 16
-| | | | | | | | | Search 15
-| | | | | | | | | | Search 14
-| | | | | | | | | | | Search 13
-| | | | | | | | | | | | Search 12
-| | | | | | | | | | | 12 = 13
-| | | | | | | | | | 13 = 14
-| | | | | | | | | 14 = 15
-| | | | | | | | 15 = 16
-| | | | | | | 16 = 17
 | | | | | | 17 = 11
+| | | | | | | Search 12
+| | | | | | | | Search 13
+| | | | | | | | | Search 14
+| | | | | | | | | | Search 15
+| | | | | | | | | | | Search 16
+| | | | | | | | | | 16 = 15
+| | | | | | | | | 15 = 14
+| | | | | | | | 14 = 13
+| | | | | | | 13 = 12
+| | | | | | 12 = 11
 | | | | | 11 = 10
 | | | | 10 = 9
 | | | 9 = 8
 | | 8 = 2
+| | | Search 6
+| | | | Search 7
+| | | 7 = 6
+| | 6 = 2
+| | | Search 3
+| | | | Search 4
+| | | | | Search 5
+| | | | 5 = 4
+| | | 4 = 3
+| | 3 = 2
 | 2 = 1
 1 = 0
 Search 18
@@ -72,28 +73,32 @@ Search 18
 19 = 18
 17 -> 11 -> 10 -> 9 -> 8 -> 2 -> 1 -> 0
 0 -> 19? false
-0 -> 17? true
-connected [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+0 -> 17? false
+connected [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1]
 unvisited []
 
+Breadth-first
 Search 0
 Search 1
 Search 11
 Search 2
 Search 12
 Search 17
-Search 10
 Search 8
 Search 6
 Search 3
 Search 13
-Search 16
 Search 9
 Search 7
-Search 5
 Search 4
 Search 14
+Search 10
+Search 5
 Search 15
+Search 16
 17 -> 11 -> 0
 unvisited [18, 19]
+
+Reverse postorder (topological sort)
+[18, 19, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 </pre>

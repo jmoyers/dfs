@@ -49,8 +49,10 @@ print(prettyPath(bfs.path(to:17)))
 print("unvisited", bfs.unvisited)
 
 print()
-print("Reverse postorder")
+print("Reverse postorder (topological sort)")
 
+// Note this doesn't make sense if there are cycles, and we take no pains
+// to verify that there aren't
 var postorder = Postorder(graph:g)
 postorder.exploreAll()
 print(postorder.getReversePostorder())
