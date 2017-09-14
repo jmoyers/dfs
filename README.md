@@ -15,6 +15,11 @@
 * MST (minimal spanning tree): What is the best way to connect the verticies
 * Biconnectivity: is there a vertex whose removal discconects the graph?
 
+* For topological sort, we look at a Digraph and DFS. In general, the "reverse
+dfs postorder of a DAG (diacyclic graph, directed graph with no cycles) is 
+topological order". Reverse postorder means that you get the deepest node in 
+a dfs and put it on a stack once there are no other unvisited nodes to explore.
+
 <br/>
 
 * Planarity: Can you draw the graph in the plane with no crossing edges?

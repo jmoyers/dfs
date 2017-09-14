@@ -26,6 +26,8 @@ g.edge(15, 16)
 g.edge(16, 17)
 g.edge(18, 19)
 
+print("Depth-first")
+
 var dfs = DFS(graph:g)
 
 dfs.findAllConnected()
@@ -36,8 +38,8 @@ print("0 -> 17?", dfs.connected(0, 17))
 print("connected", dfs.connected)
 print("unvisited", dfs.unvisited)
 
-
 print()
+print("Breadth-first")
 
 var bfs = BFS(graph:g)
 
@@ -45,3 +47,10 @@ bfs.bfs()
 
 print(prettyPath(bfs.path(to:17)))
 print("unvisited", bfs.unvisited)
+
+print()
+print("Reverse postorder")
+
+var postorder = Postorder(graph:g)
+postorder.exploreAll()
+print(postorder.getReversePostorder())

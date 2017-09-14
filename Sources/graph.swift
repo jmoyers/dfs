@@ -1,4 +1,4 @@
-class Graph {
+class Digraph {
   var vertices : [[Int]]
 
   var vertexCount : Int { 
@@ -21,7 +21,6 @@ class Graph {
 
   func edge(_ v : Int, _ w : Int) {
     vertices[v].append(w)
-    vertices[w].append(v)
   }
   
   func adjacent(_ v : Int) -> [Int]? {
@@ -30,5 +29,12 @@ class Graph {
 
   func contains(_ v : Int) -> Bool {
     return vertices.indices.contains(v)
+  }
+}
+
+class Graph : Digraph {
+  override func edge(_ v : Int, _ w : Int) {
+    vertices[v].append(w)
+    vertices[w].append(v)
   }
 }

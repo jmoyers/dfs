@@ -89,3 +89,46 @@ class DFS : GraphSearch {
     return neighbors
   }
 }
+
+class Postorder : GraphSearch {
+  var postOrder : [Int]
+  
+  override init(graph: Graph) {
+    postOrder = [Int]()
+    postOrder.reserveCapacity(graph.vertexCount)
+    super.init(graph: graph)
+    exploreAll()
+  }
+
+  func exploreAll() {
+    while unvisited.count > 0 {
+      dfs(start: unvisited[0])
+    }
+  }
+
+  override func reset() {
+    super.reset()
+    postOrder = [Int]()
+    postOrder.reserveCapacity(graph.vertexCount)
+  }
+
+  func dfs(start v: Int = 0) {
+    visited[v] = true
+
+    for w in graph.adjacent(v) ?? [] {
+      if visited[w] == false {
+        dfs(start: w)
+      }
+    }
+
+    postOrder.append(v)
+  }
+
+  func getReversePostorder() -> [Int] {
+    return postOrder.reversed()
+  }
+
+  func getPostorder() -> [Int] {
+    return postOrder
+  }
+}
