@@ -4,7 +4,7 @@ class GraphSearch {
   var pathBack : [Int]
   var visited : [Bool]
   
-  var unvisted : [Int] {
+  var unvisited : [Int] {
     get {
       return visited.enumerated().filter { $1 == false }
         .map { offset, element in
@@ -41,14 +41,14 @@ class GraphSearch {
 
     return to
   }
+}
 
-  class func pretty(_ pathBack: [Int]?) -> String {
-    guard let pathBack = pathBack else {
-      return "no path available"
-    }
-    return pathBack.reduce("") {
-      guard $0 != "" else { return "\($1)" }
-      return "\($0) -> \($1)"
-    }
+func prettyPath(_ pathBack: [Int]?) -> String {
+  guard let pathBack = pathBack else {
+    return "no path available"
+  }
+  return pathBack.reduce("") {
+    guard $0 != "" else { return "\($1)" }
+    return "\($0) -> \($1)"
   }
 }

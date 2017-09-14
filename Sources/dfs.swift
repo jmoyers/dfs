@@ -25,10 +25,32 @@ class DFS : GraphSearch {
   override init(graph: Graph) {
     connected = [Int](repeating: -1, count: graph.vertexCount)
     super.init(graph: graph)
-    dfs()
   }
 
-  @discardableResult func dfs(start v: Int = 0) -> GraphSearch {
+  // O(1) after findAllConnected
+  func connected(_ v : Int, _ w : Int) -> Bool {
+    return connected[v] == connected[w]
+  }
+
+  func findAllConnected() {
+    while unvisited.count > 0 {
+      let connectedTo = dfs(start: unvisited[0])
+
+      for vertex in connectedTo {
+        connected[vertex] = connectedCount
+      }
+
+      connectedCount += 1
+    }
+  }
+
+  override func reset() {
+    super.reset()
+    connected = [Int](repeating: -1, count: graph.vertexCount)
+    connectedCount = 0
+  }
+
+  @discardableResult func dfs(start v: Int = 0) -> [Int] {
     if started == false {
       started = true
       stackStart = Thread.callStackSymbols.count
@@ -41,14 +63,17 @@ class DFS : GraphSearch {
 
     visited[v] = true
 
-    for w in graph.adjacent(v) ?? [] {
+    var neighbors = graph.adjacent(v) ?? []
+
+    for w in neighbors {
       if visited[w] == false {
-        dfs(start: w)
+        neighbors += dfs(start: w)
+
         print("\(spacer)\(w) = \(v)")
         pathBack[w] = v
       }
     }
 
-    return self
+    return neighbors
   }
 }

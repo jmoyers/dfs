@@ -27,8 +27,14 @@ g.edge(16, 17)
 g.edge(18, 19)
 
 var dfs = DFS(graph:g)
-print(GraphSearch.pretty(dfs.path(to:17)))
-print(dfs.unvisted)
+
+dfs.findAllConnected()
+
+print(prettyPath(dfs.path(to:17)))
+print("0 -> 19?", dfs.connected(0, 19))
+print("0 -> 17?", dfs.connected(0, 17))
+print("connected", dfs.connected)
+print("unvisited", dfs.unvisited)
 
 // Connectivity queries
 // Goal: preprocess graph to answer queries of the form is v connected to w?
