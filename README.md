@@ -1,4 +1,4 @@
-# Graph processing problems
+## Graph processing notes
 
 * Path: is there a path between s and t?
 * Shortest Path: what is the hsortest path between s and t?
@@ -20,13 +20,13 @@
 * Planarity: Can you draw the graph in the plane with no crossing edges?
 * Graph isopmorphism: Do two adjacency lists represent the same graph?
 
-# Impl
+## Implementation Details
 
 * We'll use adjacency-list representation for storage
-* For every vertex, we'll keep a list of connected vertexes
-* Array<Int> -> Array<Int>
+* dfs also computed connected components for O(1) lookup
 
-```
+## Output main
+<pre>
 Search 0
 | Search 1
 | | Search 2
@@ -62,7 +62,15 @@ Search 0
 | | 8 = 2
 | 2 = 1
 1 = 0
+Search 18
+| Search 19
+19 = 18
 17 -> 11 -> 10 -> 9 -> 8 -> 2 -> 1 -> 0
+0 -> 19? false
+0 -> 17? true
+connected [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+unvisited []
+
 Search 0
 Search 1
 Search 11
@@ -82,4 +90,5 @@ Search 4
 Search 14
 Search 15
 17 -> 11 -> 0
-```
+unvisited [18, 19]
+</pre>
