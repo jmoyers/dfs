@@ -36,6 +36,16 @@ print("0 -> 17?", dfs.connected(0, 17))
 print("connected", dfs.connected)
 print("unvisited", dfs.unvisited)
 
+
+print()
+
+var bfs = BFS(graph:g)
+
+bfs.bfs()
+
+print(prettyPath(bfs.path(to:17)))
+print("unvisited", bfs.unvisited)
+
 // Connectivity queries
 // Goal: preprocess graph to answer queries of the form is v connected to w?
 //  CONSTANT TIME
